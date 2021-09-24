@@ -3,16 +3,16 @@
     "ch07 이진 탐색/p197 부품 찾기/p197.py": [
       {
         "id": "a410cb16-4258-458a-8749-6d7e60c94a1b",
-        "line": 21,
-        "version": 376,
-        "index": 234
+        "line": 19,
+        "version": 474,
+        "index": 227
       }
     ],
     "main.py": [
       {
         "id": "e7caf966-5896-480a-a19d-ad3e4ae493ef",
         "line": 1,
-        "version": 2149,
+        "version": 3422,
         "index": 0
       }
     ],
