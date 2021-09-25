@@ -3,6 +3,7 @@ array=list(map(int,input().split()))
 start=0
 end=max(array)
 
+
 def calcleft(array,start,end):
   mid=(start+end)//2
   left=0
