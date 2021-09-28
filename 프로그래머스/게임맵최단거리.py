@@ -5,7 +5,6 @@ dx=[1,-1,0,0]
 dy=[0,0,-1,1]
 
 def solution(maps):
-    answer = 0
     visited=[[False]*len(maps[0]) for _ in range(len(maps))]
     bfs(0,0,maps,visited)
     if visited[len(maps)-1][len(maps[0])-1]==False:
