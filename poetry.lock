@@ -1,0 +1,17 @@
+[[package]]
+name = "np"
+version = "1.0.2"
+description = "np = numpy++: numpy with added convenience functionality"
+category = "main"
+optional = false
+python-versions = "*"
+
+[metadata]
+lock-version = "1.1"
+python-versions = "^3.8"
+content-hash = "427225600baeb27a30f3ae763f19260deaa59fe9e78adf18789eaef8a4757383"
+
+[metadata.files]
+np = [
+    {file = "np-1.0.2.tar.gz", hash = "sha256:781265283f3823663ad8fb48741aae62abcf4c78bc19f908f8aa7c1d3eb132f8"},
+]
