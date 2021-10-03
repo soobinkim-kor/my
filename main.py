@@ -1,26 +1,33 @@
-#하노이 탑
-def hanoi(n):
-  hanoimove(n,"첫째","셋째","둘째")
+from collections import deque
+def solution(bridge_length, weight, truck_weights):
+    #bridge_lenth = 다리의 길이 / 올라갈 수 있는 트럭의 갯수  1 이상 10,000 이하
+    #weight = 다리가 버틸 수 있는 무게                      1 이상 10,000 이하
+    #truck_weights = 트럭 각각의 무게 / 순서대로 건너야 함    길이 1 이상 10,000 이하, 1 이상 weight 이하
+    #answer = 걸리는 최소 시간 (초)                        
+    
+    answer = 0
+    queue=deque()
+    for truck in truck_weights:        
+        queue.append(truck)
+    count=0
+    q = queue.popleft()
+    print(queue)
+    
 
-def hanoimove(n, from_pos, to_pos, sub_pos):
-  if n==1:
-    print("원판",n,"을",from_pos, "에서", to_pos , "로 이동")
-    return
-  hanoimove(n-1,from_pos,sub_pos,to_pos)
-  print("원판",n,"을",from_pos, "에서", to_pos, "로 이동")
-  hanoimove(n-1,sub_pos,to_pos,from_pos) 
-hanoi(3)
-
-
-def numberHanoi1(n,count):
-  if n==1:
-    count+=1    
-    return count
-  hanoimove1(n-1,from_pos,sub_pos,to_pos, count)
-  count+=1  
-  hanoimove1(n-1,sub_pos,to_pos,from_pos, count)
-
-
-numberHanoi(3)
-
-
+    """
+    while(queue):
+        current=queue.popleft()
+        while(count<=weight):
+            if queue[0]+current > weight:
+                count+=1
+                continue
+            else:
+                count+=1
+                
+        current=queue.popleft()
+        
+            
+        answer+=1
+        break
+        """
+    return answer
