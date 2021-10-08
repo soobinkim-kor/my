@@ -1,5 +1,4 @@
 #소수 경로
-
 import sys
 import math
 from collections import deque
@@ -21,7 +20,6 @@ def bfs(start,target):
           visited[changed]=1
           queue.append([changed,count+1])
 
-#a의 th번째 수 를 target으로 변경
 def changenum(a,target,th):
   length=len(str(a))
   ret=str(a)[0:th]+str(target)+str(a)[th+1:length]
@@ -42,5 +40,3 @@ for _ in range(n):
   a,b=map(int,input().split())
   result=bfs(a,b)
   print(result if result!=None else "Impossible")
-
-
