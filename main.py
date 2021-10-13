@@ -1,28 +1,31 @@
+import sys
 from collections import deque
 
-#아래, 위, 오른쪽, 왼쪽
-dx=[1,-1,0,0]
-dy=[0,0,-1,1]
+input = sys.stdin.readline
 
-def solution(maps):
-    visited=[[False]*len(maps[0]) for _ in range(len(maps))]
-    bfs(0,0,maps,visited)
-    if visited[len(maps)-1][len(maps[0])-1]==False:
-        return -1
-    return maps[len(maps)-1][len(maps[0])-1]
+n, m, k, x = map(int, input().split())
 
-def bfs(x,y,maps,visited):    
-    queue=deque()
-    queue.append([x,y])
-    while(queue):
-        x,y=queue.popleft()
-        visited[x][y]=True       
-        for i in range(4):
-            newx=x+dx[i]
-            newy=y+dy[i]
-            if(newx<0 or newy<0 or newx>=len(maps) or newy>=len(maps[0])):
-                continue
-            if maps[newx][newy]==1 and visited[newx][newy]==False:
-                visited[newx][newy]=True
-                maps[newx][newy]=maps[x][y]+1
-                queue.append([newx,newy])
+graph = [[] for _ in range(n + 1)]
+for _ in range(m):
+    a, b = map(int, input().split())
+    graph[a].append(b)
+print(graph)
+distance = [-1] * (n + 1)
+distance[x] = 0
+
+queue = deque([x])
+while (queue):
+    print(queue)
+    current = queue.popleft()
+    for node in graph[current]:
+        if distance[node] == -1:
+            distance[node] = distance[current] + 1
+            queue.append(node)
+has = False
+for i in range(len(distance)):
+    if distance[i] == k:
+        print(i)
+        has = True
+
+if has == False:
+    print(-1)
