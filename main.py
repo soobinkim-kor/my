@@ -46,7 +46,7 @@ keys=[]
 maze=[]
 answer=0
 n,m=map(int,input().split())
-
+visited=[[False]*m for _ in range(n)]
 for i in range(n):
   l=[]
   line=input()
@@ -58,56 +58,55 @@ for i in range(n):
   for j in range(m):
     if maze[i][j]=='0':
       x,y=i,j
+    
+
+print(visited)
+
 
 def bfs(x,y):
   global answer
   queue=deque([[x,y]])
 
   while(queue):
-    print(maze)
     current=queue.popleft()
     print("현재 위치",current)
-    print(keys)
     x=current[0]
     y=current[1]
-
     if maze[x][y]==1:
       return answer
 
     for i in range(4):
-      # nx, ny = 이동하려는 x,y 
       nx,ny=x+dx[i],y+dy[i]
 
       if nx<0 or ny<0 or nx>=n or ny>=m:
+        print(nx,ny,"로 갈 수 없음")
         continue    
 
-      if maze[nx][ny]=='.':
-
-        print(current,"방문")
-        answer+=1
-        queue.append([nx,ny])
-      
-      if ord(maze[nx][ny])>=97 and ord(maze[nx][ny])<=122:
-
-        keys.append(maze[nx][ny])
-        print([nx,ny],"에서 열쇠",maze[nx][ny],"획득")
-        maze[nx][ny]='.'
-        answer+=1
-        queue.append([nx,ny])
-
-      elif ord(maze[nx][ny])>=65 and ord(maze[nx][ny])<=90:
-        if maze[nx][ny].lower() in keys:
-          maze[nx][ny]='.'
-          print([nx,ny],"에서 열쇠",maze[nx][ny],"사용")
+      if visited[nx][ny]==False:
+        if maze[nx][ny]=='.':
+          visited[nx][ny]=True
+          print(current,"방문")
           answer+=1
           queue.append([nx,ny])
-        else:
-          continue
-    
-      
+        
+        if ord(maze[nx][ny])>=97 and ord(maze[nx][ny])<=122:
+          visited[nx][ny]=True
+          keys.append(maze[nx][ny])
+          print([nx,ny],"에서 열쇠",maze[nx][ny],"획득")
+          answer+=1
+          queue.append([nx,ny])
+
+        if ord(maze[nx][ny])>=65 and ord(maze[nx][ny])<=90:
+          if maze[nx][ny] in keys:
+            del keys[maze[nx][ny].toLowerCase()]
+            maze[nx][ny]='.'
+            visited[nx][ny]=True
+            print([nx,ny],"에서 열쇠",maze[nx][ny],"사용")
+            answer+=1
+            queue.append([nx,ny])
+          else:
+            continue
 print(x,y)
 
-print(ord('F'))
 bfs(x,y)
-
 print(answer)
