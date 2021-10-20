@@ -1,112 +1,67 @@
-#달이 차오른다, 가자
+# def mergesort2(a):
+#   print(a)
+#   if len(a)<=1 : return
 
-import sys
-from collections import deque
-input=sys.stdin.readline
+#   mid=len(a)//2
+#   left=a[0:mid]
+#   right=a[mid:]
+#   mergesort2(left)
+#   mergesort2(right)
 
-"""첫째 줄에 미로의 세로 크기 N과 가로 크기 M이 주어진다. (1 ≤ N, M ≤ 50) 둘째 줄부터 N개의 줄에 미로의 모양이 주어진다. 같은 타입의 열쇠가 여러 개 있을 수 있고, 문도 마찬가지이다. 그리고, 영식이가 열쇠를 숨겨놓는 다면 문에 대응하는 열쇠가 없을 수도 있다. 0은 한 개, 1은 적어도 한 개 있다. 그리고, 열쇠는 여러 번 사용할 수 있다.
+#   i,l,r = 0,0,0
 
-예제1
-1 7
-f0.F..1
-7
+#   while l<len(left) and r<len(right): 
+#     if left[l]>right[r]: ## 여기 등호만 바꾸면 됨
+#       a[i]=left[l]
+#       l+=1
 
-예제2
-5 5
-....1
-#1###
-.1.#0
-....A
-.1.#.
-
--1
-
-예제3
-7 8
-a#c#eF.1
-.#.#.#..
-.#B#D###
-0....F.1
-C#E#A###
-.#.#.#..
-d#f#bF.1
-
-55
-"""
-#소문자 unicode = 97~122
-#대문자 unicode = 65~90
-
-#오른쪽, 왼쪽, 위, 아래
-dx=[1,-1,0,0]
-dy=[0,0,-1,1]
-#보유중인 키 
-keys=[]
-#방문
-
-maze=[]
-answer=0
-n,m=map(int,input().split())
-visited=[[False]*m for _ in range(n)]
-for i in range(n):
-  l=[]
-  line=input()
-  for j in range(m):
-    l.append(line[j])
-  maze.append(l)
-
-for i in range(n):
-  for j in range(m):
-    if maze[i][j]=='0':
-      x,y=i,j
-    
-
-print(visited)
+#     else:
+#       a[i]=right[r]
+#       r+=1
+#     i+=1
 
 
-def bfs(x,y):
-  global answer
-  queue=deque([[x,y]])
+#   while l<len(left):
+#     a[i]=left[l]
+#     i+=1
+#     l+=1
+#   while r<len(right):
+#     a[i]=right[r]
+#     i+=1
+#     r+=1
 
-  while(queue):
-    current=queue.popleft()
-    print("현재 위치",current)
-    x=current[0]
-    y=current[1]
-    if maze[x][y]==1:
-      return answer
 
-    for i in range(4):
-      nx,ny=x+dx[i],y+dy[i]
+def mergesort2(A):
+  if len(A)<=1 : return A
 
-      if nx<0 or ny<0 or nx>=n or ny>=m:
-        print(nx,ny,"로 갈 수 없음")
-        continue    
+  mid=len(A)//2
+  left=A[0:mid]
+  right=A[mid:]
+  mergesort2(left)
+  mergesort2(right)
 
-      if visited[nx][ny]==False:
-        if maze[nx][ny]=='.':
-          visited[nx][ny]=True
-          print(current,"방문")
-          answer+=1
-          queue.append([nx,ny])
-        
-        if ord(maze[nx][ny])>=97 and ord(maze[nx][ny])<=122:
-          visited[nx][ny]=True
-          keys.append(maze[nx][ny])
-          print([nx,ny],"에서 열쇠",maze[nx][ny],"획득")
-          answer+=1
-          queue.append([nx,ny])
+  i,l,r = 0,0,0
 
-        if ord(maze[nx][ny])>=65 and ord(maze[nx][ny])<=90:
-          if maze[nx][ny] in keys:
-            del keys[maze[nx][ny].toLowerCase()]
-            maze[nx][ny]='.'
-            visited[nx][ny]=True
-            print([nx,ny],"에서 열쇠",maze[nx][ny],"사용")
-            answer+=1
-            queue.append([nx,ny])
-          else:
-            continue
-print(x,y)
+  while l<len(left) and r<len(right): 
+    if left[l]>right[r]:
+      A[i]=left[l]
+      l+=1
 
-bfs(x,y)
-print(answer)
+    else:
+      A[i]=right[r]
+      r+=1
+    i+=1
+
+
+  while l<len(left):
+    A[i]=left[l]
+    i+=1
+    l+=1
+  while r<len(right):
+    A[i]=right[r]
+    i+=1
+    r+=1
+
+a=[1,5,2,8,0,3]
+
+print(mergesort2(a))
