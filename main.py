@@ -20,7 +20,7 @@
 #       r+=1
 #     i+=1
 
-
+ 
 #   while l<len(left):
 #     a[i]=left[l]
 #     i+=1
