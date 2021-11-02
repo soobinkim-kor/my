@@ -1,67 +1,58 @@
-# def mergesort2(a):
-#   print(a)
-#   if len(a)<=1 : return
+import numpy
 
-#   mid=len(a)//2
-#   left=a[0:mid]
-#   right=a[mid:]
-#   mergesort2(left)
-#   mergesort2(right)
+n = [[1,4,5],[4,1,2],[4,8,1]]
+m=[[1,2,3,4],[2,4,5,1],[5,2,1,2],[5,1,2,4]]
 
-#   i,l,r = 0,0,0
+det1=numpy.linalg.det(m)
+det = numpy.linalg.det(n)
 
-#   while l<len(left) and r<len(right): 
-#     if left[l]>right[r]: ## 여기 등호만 바꾸면 됨
-#       a[i]=left[l]
-#       l+=1
-
-#     else:
-#       a[i]=right[r]
-#       r+=1
-#     i+=1
-
- 
-#   while l<len(left):
-#     a[i]=left[l]
-#     i+=1
-#     l+=1
-#   while r<len(right):
-#     a[i]=right[r]
-#     i+=1
-#     r+=1
+print(det1)
+print (det)
 
 
-def mergesort2(A):
-  if len(A)<=1 : return A
+def makeZeroMatrix(n,m):
+  A=[]
+  for i in range(n):
+    A=A+[[0]*m]
+  return A
 
-  mid=len(A)//2
-  left=A[0:mid]
-  right=A[mid:]
-  mergesort2(left)
-  mergesort2(right)
+def makeC(A,i,j):
+  n=len(A)
+  B=makeZeroMatrix(n-1,n-1)
+  for a in range(n-1):
+    for b in range(n-1):
+      if a>=i and b<j:
+        B[a][b]=A[a+1][b]
+      elif a<i and b>=j:
+        B[a][b]=A[a][b+1]
+      elif a>=i and b>=j:
+        B[a][b]=A[a+1][b+1]
+      else:
+        B[a][b]=A[a][b]
+  return B
 
-  i,l,r = 0,0,0
+A=[[1,1,0],[2,2,1],[0,1,1]]
+B=[[1,4,5],[4,1,2],[4,8,1]]
+# 1 1 0 
+# 2 2 1
+# 0 1 1
 
-  while l<len(left) and r<len(right): 
-    if left[l]>right[r]:
-      A[i]=left[l]
-      l+=1
+# 1 4 5
+# 4 1 2
+# 4 8 1
+-15+16+140
+def matrixDet(A):
+    if len(A)==1: return A[0][0]
 
-    else:
-      A[i]=right[r]
-      r+=1
-    i+=1
+    if len(A) == 2:
+        return A[0][0]*A[1][1]-A[0][1]*A[1][0]
+    determinant = 0
 
+    for j in range(len(A)):
+      C_1=makeC(A,0,j)
+      determinant=determinant+A[0][j]*(-1)**(j)*matrixDet(C_1)
 
-  while l<len(left):
-    A[i]=left[l]
-    i+=1
-    l+=1
-  while r<len(right):
-    A[i]=right[r]
-    i+=1
-    r+=1
-
-a=[1,5,2,8,0,3]
-
-print(mergesort2(a))
+    return determinant
+print(matrixDet(A))
+print(matrixDet(B))
+print(matrixDet(m))
