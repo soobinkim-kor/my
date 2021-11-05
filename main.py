@@ -1,13 +1,5 @@
 import numpy
 
-n = [[1,4,5],[4,1,2],[4,8,1]]
-m=[[1,2,3,4],[2,4,5,1],[5,2,1,2],[5,1,2,4]]
-
-det1=numpy.linalg.det(m)
-det = numpy.linalg.det(n)
-
-print(det1)
-print (det)
 
 
 def makeZeroMatrix(n,m):
@@ -46,6 +38,7 @@ def matrixDet(A):
 
     if len(A) == 2:
         return A[0][0]*A[1][1]-A[0][1]*A[1][0]
+
     determinant = 0
 
     for j in range(len(A)):
@@ -53,6 +46,33 @@ def matrixDet(A):
       determinant=determinant+A[0][j]*(-1)**(j)*matrixDet(C_1)
 
     return determinant
-print(matrixDet(A))
-print(matrixDet(B))
-print(matrixDet(m))
+
+
+#3 x 2 (len(A[0])),len(A))
+A=[[1,1,0],[2,2,1]]
+
+def transpose(A):
+  n=len(A) #    2
+  m=len(A[0])#  3
+  b=makeZeroMatrix(m,n)
+  for i in range(len(A)):
+    for j in range(len(A[0])):
+      b[j][i]=A[i][j]
+  return b
+
+def inverse(A):
+  b=makeZeroMatrix(len(A),len(A))
+  A=transpose(A)
+  for i in range(len(A)):
+    for j in range(len(A)):
+      b[i][j]=(-1)**(i+j)*matrixDet(makeC(A,i,j))/matrixDet(A)
+  return b
+
+
+B=[[1,2,3],[0,1,4],[5,6,0]]
+#print(inverse(A))
+
+
+print(inverse(B))
+b=numpy.linalg.inv(B)
+print(b)
