@@ -1,29 +1,72 @@
-#하노이 횟수 count
-def Hanoi(n,k):
-  a=loops(n,"첫째","둘째","셋째",k,0)
-  print(a)
+def permut(array):
+  if len(array)==1:
+    return [array]
+  res=[]
+  for permutation in permut(array[1:]):
+    for i in range(len(array)):
+      res.append(permutation[:i] + array[0:1] + permutation[i:])
+  return res
 
+print(permut([2,3]))
 
-def loops(n,a,b,c,k,count):
-  if n==1:
-    if k==1:
-      count+=1
-      print("원판%d를 %s에서 %s로 옮긴다. 총%d번째" % (n,a,c,count))
-      return count
-    else:    
-      print("원판%d를 %s에서 %s로 옮긴다." % (n,a,c))
-      return count
+def nextPerm(A):
+  kposition=0     # k 인덱스
+  lposition=0     # l 인덱스
+
+  # 1. a[k]<a[k+1] 인 가장 큰 k 찾기
+  for k in range(len(A)-1):
+    if A[k]<A[k+1]:
+      kposition=k
   
-  else:
-    if k==n:
-      count=loops(n-1,a,c,b,k,count)
-      count+=1
-      print("원판 %d를 %s에서 %s로 옮긴다. 총 %d번째" %(n,a,c,count))
-      count=loops(n-1,b,a,c,k,count)
-    else:
-      count=loops(n-1,a,c,b,k,count) #hanoi
-      print("원판 %d를 %s에서 %s로 옮긴다." %(n,a,c))
-      count=loops(n-1,b,a,c,k,count) #hanoi
-    return count
+  # a[k]<a[k+1] 인 값이 없을 때 (내림차순으로 되어있을 때)
+  if kposition==0:
+    return 'no next permutation'
+  #2. k보다 큰 인덱스 중 a[k]<a[l] 인 가장 큰 인덱스 l 찾기
+  for l in range(kposition,len(A)):
+    if A[kposition]<A[l]:
+      lposition=l
 
-Hanoi(3,2)
+  #a[k] 와 a[l] 을 바꾼다
+  A[kposition],A[lposition]=A[lposition],A[kposition]
+
+  #a[k+1,...,n] 의 순서를 뒤집는다
+  A=A[0:kposition+1]+fliplist(A[kposition+1:])
+  return A
+
+def fliplist(a):
+    for i in range(0,len(a)//2):
+        a[i],a[len(a)-1-i]=a[len(a)-1-i],a[i]
+    return a
+
+def bubblesort(S):
+    for i in range(len(S)):
+        for j in range(len(S)-i-1):
+            if S[j]>S[j+1]:
+                S[j],S[j+1]=S[j+1],S[j]
+    return S
+
+def nextComb(n,S):
+  S=bubblesort(S)
+  findI=0
+  for i in range(len(S)):
+    if S[i]!=n-len(S)+i+1:
+      break
+    return "no next combination"
+
+  for i in range(len(S)):
+    if S[i]!=n-len(S)+i+1:
+      findI=i
+
+  S[findI]=S[findI]+1
+
+  for j in range(findI+1,len(S)):
+    S[j]=S[findI]+j-findI
+  
+  return S
+ 
+print(nextComb(3,[1,2]))
+print(nextComb(3,[1,3]))
+print(nextComb(4,[1,2,4,3]))
+print(nextComb(3,[1]))
+print(nextComb(3,[3,5,2,1]))
+
