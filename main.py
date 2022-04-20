@@ -1,6 +1,6 @@
 #우애수 찾기
 # DP로 풀기
-
+ 
 def divisorSum(n):  # 자기 자신을 제외한 약수의 합을 구하는 함수
   sum=0
   for i in range(1,n//2+1):
